@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // context
-import CartProvider from "./store/CartProvider";
+import CartProvider from "./store/cart/CartProvider";
 
 // components
 import Header from "./components/Layout/Header/Header";
