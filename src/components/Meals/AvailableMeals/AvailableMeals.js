@@ -5,10 +5,11 @@ import MealItem from "../MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 
 // data
-import { getAllMeals } from "../service";
+import { getAllMeals } from "../../../data";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -26,6 +27,7 @@ const AvailableMeals = () => {
         }
       }
       setMeals(loadedMeals);
+      setIsLoading(false);
     };
 
     fetchMeals();
@@ -42,6 +44,14 @@ const AvailableMeals = () => {
       />
     );
   });
+
+  if (isLoading) {
+    return (
+      <section className={classes.MealsLoading}>
+        <p>Loading...</p>
+      </section>
+    );
+  }
 
   return (
     <section className={classes.meals}>
