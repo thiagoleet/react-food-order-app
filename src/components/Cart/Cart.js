@@ -11,6 +11,7 @@ import CartContext from "../../store/cart/cart-context";
 import { Modal } from "../UI";
 import CartItem from "./CartItem/CartItem";
 import Checkout from "./Checkout/Checkout";
+import { addOrder } from "../../data";
 
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
@@ -26,6 +27,14 @@ const Cart = (props) => {
 
   const orderHandler = () => {
     setIsCheckout(true);
+  };
+
+  const submitOrderHandler = (userData) => {
+    const order = {
+      user: userData,
+      orderedItems: cartCtx.items,
+    };
+    addOrder(order);
   };
 
   const cartItems = (
@@ -67,7 +76,9 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout && <Checkout onCancel={props.onClose} />}
+      {isCheckout && (
+        <Checkout onCancel={props.onClose} onConfirm={submitOrderHandler} />
+      )}
       {!isCheckout && modalActions}
     </Modal>
   );
