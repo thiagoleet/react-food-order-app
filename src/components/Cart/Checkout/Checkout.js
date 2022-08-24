@@ -23,9 +23,9 @@ const Checkout = (props) => {
     event.preventDefault();
 
     const name = nameInput.current.value;
-    const street = nameInput.current.value;
-    const postalCode = nameInput.current.value;
-    const city = nameInput.current.value;
+    const street = streetInput.current.value;
+    const postalCode = postalCodeInput.current.value;
+    const city = cityInput.current.value;
 
     const nameIsValid = !isEmpty(name);
     const streetIsValid = !isEmpty(street);
