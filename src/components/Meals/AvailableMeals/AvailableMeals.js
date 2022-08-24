@@ -1,13 +1,37 @@
 // styles
+import { useEffect, useState } from "react";
 import { Card } from "../../UI";
 import MealItem from "../MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 
 // data
-import { DUMMY_MEALS } from "./dummy-meals";
+import { getAllMeals } from "../service";
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => {
+  const [meals, setMeals] = useState([]);
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      const responseData = await getAllMeals();
+
+      const loadedMeals = [];
+      for (const key in responseData) {
+        if (Object.hasOwnProperty.call(responseData, key)) {
+          loadedMeals.push({
+            id: key,
+            name: responseData[key].name,
+            description: responseData[key].description,
+            price: responseData[key].price,
+          });
+        }
+      }
+      setMeals(loadedMeals);
+    };
+
+    fetchMeals();
+  }, []);
+
+  const mealsList = meals.map((meal) => {
     return (
       <MealItem
         description={meal.description}
